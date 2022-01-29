@@ -3,6 +3,7 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include <algorithm>  // sort
 #include <stdlib.h>     /* atoi */
 using namespace std;
 
@@ -29,29 +30,21 @@ int main()
 					min = arr[i];
 		i++;
 	}
-	long long int x0;
-	for (x0 = min; (x0 * x0) <= max; x0++){}
-	cout <<" x0 "<< x0 << endl;
+	sort(arr.begin(), arr.end());  // сортировка
+	long long int x0 = arr[0];//по дефолту наименьший из возможных - это минимальный элемент А
+	for (int i = 0; i < n; i++) {
+		long long int Xi = x0 * x0 - arr[i];//ищем i-ый элемент Петиной последовательности
+		for(int t = 0; t < n ; t++) {//проверяем соответствует ли Петиному условию наш x0
+			if (Xi >= 0)
+				Xi = Xi * Xi - arr[t];
+			else
+			{
+				x0++;//если не соответствует то увеличиваем х0 на 1 и выходим из цикла подсчета элементов последовательности
+				break;
+			}
+		}
+	}
+	cout << x0 << endl;
 	return 0;
-	//int n;//количество элементов во множестве А
-	//cin >> n;
-	//long long int *arr = new long long[n];//задаем динамический массив из 64битных чисел
-	//long long int max;
-	//long long int min;
-	//for (int i = 0; i < n; i++) {
-	//	long long int a;
-	//	cin >> a;
-	//	arr[i] = a;
-	//	if(i == 0 || max < arr[i])
-	//	   max = arr[i];
-	//	if (i == 0 || min > arr[i])
-	//		min = arr[i];
-	//}
-	//cout << " max " << max << endl;
-	//long long int x0;
-	//for (x0 = min; (x0 * x0) <= max; x0++){}
-	//cout <<" x0 "<< x0 << endl;
-	//delete [] arr;//освобождение памяти
-	//
 }
 
