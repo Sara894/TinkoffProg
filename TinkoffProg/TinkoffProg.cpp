@@ -1,46 +1,57 @@
-﻿//У вас есть прямоугольник ﻿n ×mn×m﻿.Вы закрашиваете в нем максимально возможный по площади квадрат таким образом, чтобы незакрашенная часть осталась связанным прямоугольником.После
-//
-//этого вы берете новое ведро с краской и продолжаете закрашивание оставшейся части вышеописанным способом.Сколько ведер с краской вам потребуется ?
-//
-//Например, если у вас есть прямоугольник ﻿3 ×43×4﻿, то в нем можно закрасить квадрат ﻿ 3 ×3 3×3﻿ таким образом, что оставшаяся часть займет прямоугольник размером ﻿3×13×1﻿, который получится закрасить тремя квадратами.На весь процесс понадобится четыре ведра с краской.
-//
-//Формат входных данных
-//
-//Даны два натуральных числа ﻿n, m\left(1 \leqslant n, m \leqslant 10 ^ {18}\right)n, m(1⩽n, m⩽10
-//	18
-//)﻿.Обратите внимание, что вам понадобится 64 - битный тип данных для ввода.
-//
-//Формат выходных данных
-//
-//Выведите одно число ﻿ - −﻿ количество ведер с краской.
-
+﻿//Задача про Петю
 #include <iostream>
+#include <string>
+#include <sstream>
+#include <vector>
+#include <stdlib.h>     /* atoi */
 using namespace std;
 
 int main()
 {
-	int a, b;
-	cin >> a >> b;
-	int numBucket = 0; 
-	
-	if (a < b) {
-		int temp = a;//в нашей задаче длина всегда больше или равна ширине
-		a = b;
-		b = temp;
+	string nn;
+	getline(cin, nn);
+	int n;//количество элементов во множестве А
+	n = atoi(nn.c_str());//такой тупой способ ввода чтобы отделить строку с элементами массива от числа 
+	string s;
+	getline(cin, s);
+	istringstream ss(s);
+	vector<long long int> arr;
+	long long int a;
+	int i = 0;//счетчик для заполнения массива 
+	long long int min;
+	long long int max;
+	while (ss >> a && i < n)
+	{
+		arr.push_back(a);
+		if (i == 0 || max < arr[i])
+				   max = arr[i];
+				if (i == 0 || min > arr[i])
+					min = arr[i];
+		i++;
 	}
-	if (a % b == 0) cout << /*numBucket =*/ a / b << endl;
-	else {
-		while (a % b != 0) {
-			numBucket += a / b;
-			a %= b;
-			if (a < b) {
-				int temp = a;//в нашей задаче длина всегда больше или равна ширине
-				a = b;
-				b = temp;
-			}
-		}
-		numBucket += a / b;
-		cout << numBucket << endl;
-	}	
+	long long int x0;
+	for (x0 = min; (x0 * x0) <= max; x0++){}
+	cout <<" x0 "<< x0 << endl;
+	return 0;
+	//int n;//количество элементов во множестве А
+	//cin >> n;
+	//long long int *arr = new long long[n];//задаем динамический массив из 64битных чисел
+	//long long int max;
+	//long long int min;
+	//for (int i = 0; i < n; i++) {
+	//	long long int a;
+	//	cin >> a;
+	//	arr[i] = a;
+	//	if(i == 0 || max < arr[i])
+	//	   max = arr[i];
+	//	if (i == 0 || min > arr[i])
+	//		min = arr[i];
+	//}
+	//cout << " max " << max << endl;
+	//long long int x0;
+	//for (x0 = min; (x0 * x0) <= max; x0++){}
+	//cout <<" x0 "<< x0 << endl;
+	//delete [] arr;//освобождение памяти
+	//
 }
 
